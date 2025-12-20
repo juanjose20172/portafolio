@@ -65,6 +65,7 @@
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 80px;
+    font-size: 90%;
 }
 
 body {
@@ -555,6 +556,13 @@ section {
     border-color: var(--accent-primary);
 }
 
+.category-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
 .category-icon {
     width: 60px;
     height: 60px;
@@ -563,15 +571,15 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: var(--spacing-md);
     font-size: 1.75rem;
     color: white;
+    flex-shrink: 0;
 }
 
 .stack-category h3 {
     font-family: var(--font-heading);
     font-size: 1.5rem;
-    margin-bottom: var(--spacing-md);
+    margin: 0;
 }
 
 .stack-category ul {
