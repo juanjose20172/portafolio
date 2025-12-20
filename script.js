@@ -290,6 +290,101 @@ setTimeout(() => {
     document.body.classList.add('loaded');
 }, 100);
 
+// Project Modals Functionality
+const projectCards = document.querySelectorAll('.project-card-simple');
+const modals = document.querySelectorAll('.project-modal');
+const modalCloses = document.querySelectorAll('.modal-close');
+
+// Open modal when clicking project card or "Ver detalles" button
+projectCards.forEach(card => {
+    const openModal = () => {
+        const projectId = card.getAttribute('data-project');
+        const modal = document.getElementById(`modal-${projectId}`);
+
+        if (modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            // Lazy load video iframe
+            const iframe = modal.querySelector('iframe');
+            if (iframe && iframe.getAttribute('data-src')) {
+                iframe.setAttribute('src', iframe.getAttribute('data-src'));
+            }
+        }
+    };
+
+    card.addEventListener('click', (e) => {
+        // Don't open if clicking the button (it has its own handler)
+        if (!e.target.closest('.btn-view-project')) {
+            openModal();
+        }
+    });
+
+    const button = card.querySelector('.btn-view-project');
+    if (button) {
+        button.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openModal();
+        });
+    }
+});
+
+// Close modal when clicking close button
+modalCloses.forEach(closeBtn => {
+    closeBtn.addEventListener('click', () => {
+        const modal = closeBtn.closest('.project-modal');
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+
+            // Stop video when closing modal
+            const iframe = modal.querySelector('iframe');
+            if (iframe) {
+                const src = iframe.getAttribute('src');
+                iframe.setAttribute('src', '');
+                iframe.setAttribute('data-src', src);
+            }
+        }
+    });
+});
+
+// Close modal when clicking outside content
+modals.forEach(modal => {
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+
+            // Stop video when closing modal
+            const iframe = modal.querySelector('iframe');
+            if (iframe) {
+                const src = iframe.getAttribute('src');
+                iframe.setAttribute('src', '');
+                iframe.setAttribute('data-src', src);
+            }
+        }
+    });
+});
+
+// Close modal with ESC key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        const activeModal = document.querySelector('.project-modal.active');
+        if (activeModal) {
+            activeModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+
+            // Stop video when closing modal
+            const iframe = activeModal.querySelector('iframe');
+            if (iframe) {
+                const src = iframe.getAttribute('src');
+                iframe.setAttribute('src', '');
+                iframe.setAttribute('data-src', src);
+            }
+        }
+    }
+});
+
 // Console message for developers
 console.log('%c¡Hola, desarrollador! 👋', 'color: #6366f1; font-size: 20px; font-weight: bold;');
 console.log('%c¿Interesado en ver cómo funciona este portafolio?', 'color: #8b5cf6; font-size: 14px;');
