@@ -178,30 +178,56 @@ emailLinks.forEach(link => {
     link.addEventListener('click', (e) => {
         const email = link.getAttribute('href').replace('mailto:', '');
 
+        // Remove any existing tooltips first
+        const existingTooltips = document.querySelectorAll('.email-copied-toast');
+        existingTooltips.forEach(t => t.remove());
+
         // Create temporary tooltip
         const tooltip = document.createElement('div');
+        tooltip.className = 'email-copied-toast';
         tooltip.textContent = 'Email copiado!';
         tooltip.style.cssText = `
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: var(--accent-primary);
+            background: #6366f1;
             color: white;
             padding: 12px 24px;
             border-radius: 8px;
             font-weight: 600;
             z-index: 10000;
-            animation: fadeInOut 2s ease;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         `;
 
         document.body.appendChild(tooltip);
 
+        // Trigger animation
+        setTimeout(() => {
+            tooltip.style.opacity = '1';
+        }, 10);
+
         // Copy to clipboard
         navigator.clipboard.writeText(email).then(() => {
             setTimeout(() => {
-                document.body.removeChild(tooltip);
-            }, 2000);
+                tooltip.style.opacity = '0';
+                setTimeout(() => {
+                    if (tooltip.parentNode) {
+                        tooltip.remove();
+                    }
+                }, 300);
+            }, 1500);
+        }).catch(() => {
+            // If clipboard fails, still remove tooltip
+            setTimeout(() => {
+                tooltip.style.opacity = '0';
+                setTimeout(() => {
+                    if (tooltip.parentNode) {
+                        tooltip.remove();
+                    }
+                }, 300);
+            }, 1500);
         });
     });
 });
@@ -389,3 +415,23 @@ document.addEventListener('keydown', (e) => {
 console.log('%c¡Hola, desarrollador! 👋', 'color: #6366f1; font-size: 20px; font-weight: bold;');
 console.log('%c¿Interesado en ver cómo funciona este portafolio?', 'color: #8b5cf6; font-size: 14px;');
 console.log('%cNo dudes en contactarme si tienes alguna pregunta.', 'color: #64748b; font-size: 12px;');
+
+// Scroll to Top Button Functionality
+const scrollToTopBtn = document.getElementById('scrollToTop');
+
+// Show/hide button based on scroll position
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+    } else {
+        scrollToTopBtn.classList.remove('visible');
+    }
+});
+
+// Scroll to top when button is clicked
+scrollToTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});

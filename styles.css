@@ -324,6 +324,27 @@ body {
     box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
 }
 
+/* Ver Proyectos button enhancement for desktop */
+@media (min-width: 961px) {
+    .hero-buttons .btn-primary {
+        padding: 1.75rem 3.5rem;
+        font-size: 1.25rem;
+        animation: pulseGlow 2s infinite ease-in-out;
+        font-weight: 700;
+    }
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4), 0 0 20px rgba(99, 102, 241, 0.3);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 8px 24px rgba(99, 102, 241, 0.6), 0 0 30px rgba(99, 102, 241, 0.5);
+        transform: scale(1.05);
+    }
+}
+
 .btn-secondary {
     background: var(--bg-secondary);
     color: var(--text-primary);
@@ -372,15 +393,33 @@ body {
 }
 
 .card-2 {
-    top: 50%;
-    right: 0;
+    top: 8%;
+    right: 8%;
     animation-delay: -2s;
 }
 
 .card-3 {
-    bottom: 20%;
-    left: 10%;
+    top: 55%;
+    left: 3%;
     animation-delay: -4s;
+}
+
+.card-4 {
+    bottom: 15%;
+    right: 10%;
+    animation-delay: -1s;
+}
+
+.card-5 {
+    bottom: 8%;
+    left: 38%;
+    animation-delay: -3s;
+}
+
+.card-6 {
+    top: 32%;
+    left: 25%;
+    animation-delay: -5s;
 }
 
 @keyframes floatCard {
@@ -482,6 +521,14 @@ section {
     border: 4px solid var(--bg-primary);
     object-fit: cover;
     max-height: 500px;
+}
+
+@media (min-width: 961px) {
+    .about-image img {
+        object-fit: contain;
+        max-height: 600px;
+        object-position: center;
+    }
 }
 
 /* Stack Section */
@@ -628,6 +675,15 @@ section {
     color: var(--text-primary);
     line-height: 1.3;
     padding-right: 2rem;
+}
+
+.project-date {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+    font-family: var(--font-primary);
 }
 
 .project-tech-preview {
@@ -923,6 +979,13 @@ section {
     font-size: 1.1rem;
 }
 
+.contact-email {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+    margin-top: -0.5rem;
+}
+
 /* Footer */
 .footer {
     background: var(--bg-secondary);
@@ -1083,6 +1146,45 @@ section {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+}
+
+/* Scroll to Top Button */
+.scroll-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    background: var(--accent-gradient);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.25rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    transition: all var(--transition-base);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.scroll-to-top:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.5);
+}
+
+.scroll-to-top:active {
+    transform: translateY(-2px);
 }
 
 /* Scroll Animations */
