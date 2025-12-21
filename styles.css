@@ -397,7 +397,7 @@ body {
 }
 
 .card-2 {
-    top: 12%;
+    top: 18%;
     right: 5%;
     animation-delay: -2s;
 }
@@ -532,6 +532,8 @@ section {
         object-fit: contain;
         max-height: 600px;
         object-position: center;
+        border: none;
+        border-radius: var(--radius-2xl);
     }
 }
 
